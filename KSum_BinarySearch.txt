@@ -1,0 +1,65 @@
+K sum
+Given an array arr[] of size N and a number K, the task is to find the smallest number M such that the sum of the array becomes lesser than or equal to the number K when every element of that array is divided by the number M.
+
+Note: Each result of the division is rounded to the nearest integer greater than or equal to that element. For example: 10/3 = 4 and 6/2 = 3
+
+Solution:
+#include "bits/stdc++.h"
+using namespace std;
+ 
+#define ll long long int
+#define ld long double
+#define pi pair<int, int>
+#define pb push_back
+#define fi first
+#define se second
+#define IOS ios::sync_with_stdio(false); cin.tie(0); cout.tie(0)
+#ifndef LOCAL
+#define endl '\n'
+#endif
+
+const int N = 1e5 + 5;
+const int mod = 1e9 + 7;
+const int inf = 1e9 + 9;
+
+int a[N], n, k;
+
+bool f(int x){
+	int sum = 0;
+	for(int i = 1; i <= n; i++)
+		sum += (a[i]-1)/x + 1;
+	return (sum <= k);
+}
+
+void solve(){
+	cin >> n >> k;
+	for(int i = 1; i <= n; i++)
+		cin >> a[i];
+	int l = 0, h = N;
+	while(l+1 < h){
+		int m = (l + h) >> 1;
+		if(f(m))
+			h = m;
+		else
+			l = m;
+	}
+	cout << h;
+}
+
+void testcases(){
+	int tt = 1; 
+	//cin >> tt;
+	while(tt--){
+		solve();
+	}
+}
+
+signed main() {
+	IOS;
+		clock_t start = clock();
+
+	testcases();
+
+	cerr << (double)(clock() - start)*1000/CLOCKS_PER_SEC << " ms" << endl;
+	return 0;
+}
